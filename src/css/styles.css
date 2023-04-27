@@ -28,6 +28,8 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
   border-radius: 10px;
+  border-color: aliceblue;
+  background-color: aliceblue;
 }
 
 .listEl {

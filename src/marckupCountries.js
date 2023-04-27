@@ -1,3 +1,4 @@
+"use strict"
 export function markupArray(array) {
     return stingsArray = array.map(e => 
     {
