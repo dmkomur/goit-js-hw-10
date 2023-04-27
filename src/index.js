@@ -11,12 +11,6 @@ const countryCardRef = document.querySelector('.country-info');
 
 inputRef.addEventListener('input', debounce(onInputChange, DEBOUNCE_DELAY));
 
-
-
-
-
-
-
 function onInputChange(e
 ) {
     let searchQuery = e.target.value.trim();
@@ -26,7 +20,7 @@ function onInputChange(e
         return
     }
     fetchCountries(searchQuery).then(data => {
-        if (data.length > 10) { Notiflix.Notify.warning("Too many matches found. Please enter a more specific name."); }
+        if (data.length > 10) { Notiflix.Notify.success("Too many matches found. Please enter a more specific name."); }
         else if (data.length === 1) { countryCardRef.innerHTML = `${markupCard(data)}`; countryListRef.innerHTML = ''}
         else { countryListRef.innerHTML = `${markupArray(data)}`; countryCardRef.innerHTML = ''}
     } ).catch(err => Notiflix.Notify.failure("Oops, there is no country with that name"));
