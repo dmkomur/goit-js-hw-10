@@ -1,6 +1,6 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchCountries } from './fetchCountries';
 import { markupArray, markupCard } from './marckupCountries';
 
@@ -20,15 +20,21 @@ function onInputChange(e
         return
     }
     fetchCountries(searchQuery).then(data => {
-        if (data.length > 10) { Notiflix.Notify.success("Too many matches found. Please enter a more specific name."); }
-        else if (data.length === 1) { countryListRef.innerHTML = ''; countryCardRef.innerHTML = `${markupCard(data)}`; }
-        else { countryCardRef.innerHTML = ''; countryListRef.innerHTML = `${markupArray(data)}`; }
+        if (data.length > 10) { Notify.info("Too many matches found. Please enter a more specific name."); clearAll(); return}
+        if (data.length === 1) { makeCard() ; return }
+       makeList()
     }).catch(err => {
-        countryListRef.innerHTML = '';
-        countryCardRef.innerHTML = '';
-
-        Notiflix.Notify.failure("Oops, there is no country with that name")
+        clearAll;
+        Notify.failure("Oops, there is no country with that name")
     });
 }
+function clearAll() {
+    countryListRef.innerHTML = '';
+    countryCardRef.innerHTML = '';
 
-
+ }
+function makeCard() { 
+    countryListRef.innerHTML = ''; countryCardRef.innerHTML = `${markupCard(data)}`
+}
+function makeList() { countryCardRef.innerHTML = '';
+        countryListRef.innerHTML = `${markupArray(data)}`;}
